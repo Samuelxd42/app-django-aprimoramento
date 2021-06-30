@@ -1,0 +1,57 @@
+{% extends "model-page.html" %}
+
+{% block main %}
+
+<h2>Clientes</h2>
+
+
+
+<table class="table table-dark">
+
+    <thead>
+        <tr>
+            <th scope="col">Id </th>
+            <th scope="col">Nome </th>
+            <th scope="col">Sobrenome </th>
+            <th scope="col">Email </th>
+            <th scope="col">Telefone</th>
+            <th scope="col">Funções</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for clients in object_list %}
+        <tr>
+            <th scope="row">{{ clients.id }}</th>
+            <td> {{ clients.first_name }} </td>
+            <td>{{ clients.last_name }}</td>
+            <td>{{ clients.email }}</td>
+            <td>{{ clients.phone_number}}</td>
+            <td>
+                <a type="button" class="btn btn-secondary margin-left-btn"
+                    href="{% url 'edit_clients' clients.id %}">
+                    Editar
+                </a>
+
+                <a class="btn btn-success margin-left-btn" 
+                    href="{% url 'create_clients' %}">
+                    Criar
+                </a>
+
+
+                <a class="btn btn-danger"
+                    href="{% url 'delete_clients' clients.id %}">
+                    Deletar
+                </a>
+
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+
+</table>
+
+
+
+
+{% endblock %}

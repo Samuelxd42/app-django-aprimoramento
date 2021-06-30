@@ -1,0 +1,14 @@
+{% extends 'model-page.html' %}
+
+{% block main %}
+    
+    <h3 class="div-container text-h3">Deletar Clientes</h3>
+    <form method="POST"> {% csrf_token %}
+
+        <h1>Tem certeza que deseja Deletar esse Funcionário?{{ obj }}</h1>
+        {{ form }}
+
+        <button type="submit" class="btn btn-danger">Confimar</button>
+    </form>
+
+{% endblock %}
