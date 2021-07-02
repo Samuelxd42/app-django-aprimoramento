@@ -4,39 +4,43 @@
 
 <h2>Clientes</h2>
 
+<a class="btn btn-success margin-left-btn" style="margin-bottom: 20px;"
+href="{% url 'create_clients' %}">
+    Adicionar clientes
+</a>
 
+<form>
+    <div class="form-group mb-1" style="width: 220px;" >
+        <input class="form-control" name="name" type="text" placeholder="Buscar por nome" >
+    </div>
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
 
-<table class="table table-dark">
+<table class="table table-dark mt-1">
 
     <thead>
         <tr>
-            <th scope="col">Id </th>
-            <th scope="col">Nome </th>
-            <th scope="col">Sobrenome </th>
-            <th scope="col">Email </th>
+            <th scope="col">Nome</th>
+            <th scope="col">Cidade</th>
             <th scope="col">Telefone</th>
+            <th scope="col">Cpf</th>
+            <th scope="col">Email </th>
             <th scope="col">Funções</th>
         </tr>
     </thead>
     <tbody>
         {% for clients in object_list %}
         <tr>
-            <th scope="row">{{ clients.id }}</th>
-            <td> {{ clients.first_name }} </td>
-            <td>{{ clients.last_name }}</td>
-            <td>{{ clients.email }}</td>
-            <td>{{ clients.phone_number}}</td>
+            <td> {{ clients.get_name }} </td>
+            <td>{{ clients.get_full_city}}</td>
+            <td>{{ clients.get_full_phone_number }}</td>
+            <td>{{ clients.get_cpf }}</td>
+            <td>{{ clients.email}}</td>
             <td>
                 <a type="button" class="btn btn-secondary margin-left-btn"
                     href="{% url 'edit_clients' clients.id %}">
                     Editar
                 </a>
-
-                <a class="btn btn-success margin-left-btn" 
-                    href="{% url 'create_clients' %}">
-                    Criar
-                </a>
-
 
                 <a class="btn btn-danger"
                     href="{% url 'delete_clients' clients.id %}">
@@ -52,6 +56,23 @@
 </table>
 
 
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a></li>
+        {% else %}
+            <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
+        {% endif %}
 
+        {% for object in page_obj.paginator.page_range %}
+            <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+        {% endfor %}
+        
+        {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Proximo</a></li>
+        {% else %}
+            <li class="page-item disabled"><a class="page-link" href="#">Proximo</a></li>
+        {% endif %}
+    </ul>
+ 
 
 {% endblock %}

@@ -1,4 +1,5 @@
 
+from .form import CustumerForm
 from django.views.generic import (
     ListView, 
     UpdateView, 
@@ -8,18 +9,32 @@ from django.views.generic import (
 
 from .models import Client
 from django.urls import reverse_lazy
+from django.db.models import Q
+
 
 
 class ListClients(ListView):
     model = Client
-    queryset = Client.objects.all()
+    paginate_by = 4
+    
+    def get_queryset(self):
+        name = self.request.GET.get('name')
+        if name:
+            object_list = self.model.objects.filter(
+                Q(first_name__icontains=name) | 
+                Q(last_name__icontains=name) | 
+                Q(phone_number__icontains=name) |
+                Q(cpf__icontains=name)
+            )
+        else:
+            object_list = self.model.objects.all()
+        return object_list
 
 
 class EditClients(UpdateView):
     model = Client
-    fields = ['first_name', 'last_name', 'email', 'cpf', 
-        'birth_date', 'area_code', 'phone_number', 'country',
-        'state', 'city']
+    form_class = CustumerForm
+
 
 
 class DeleteClients(DeleteView):
@@ -29,8 +44,6 @@ class DeleteClients(DeleteView):
 
 class CreateClients(CreateView):
     model = Client
-    fields = fields = ['first_name', 'last_name', 'email', 'cpf', 
-        'birth_date', 'area_code', 'phone_number', 'country',
-        'state', 'city']
     success_url = reverse_lazy('list_clients')
+    form_class = CustumerForm
 
