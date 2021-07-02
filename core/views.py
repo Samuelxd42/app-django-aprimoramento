@@ -5,6 +5,9 @@ from django.contrib.auth import (
     logout as app_logout
 )
 from django.contrib import messages
+from django.views import generic
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
 
 
 def login(request):
@@ -26,3 +29,9 @@ def submit_login(request):
 def logout(request):
     app_logout(request)
     return redirect("login")
+
+
+class SignUp(generic.CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy('login')
+    template_name = 'register.html'

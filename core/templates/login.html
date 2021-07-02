@@ -110,11 +110,15 @@
                     </div>
                     {% if messages %}
                     {% for message in messages %}
-                    <div class="alert alert-danger">{{ message }}</div>
+                        <div class="alert alert-danger">{{ message }}</div>
                     {% endfor %}
 
                     {% endif %}
                     <button type="submit" class="btn btn-black">Entrar</button>
+
+                    <a class="btn btn-black" href="{% url 'signup' %}">
+                        Cadastrar-se
+                    </a>
 
                 </form>
             </div>
