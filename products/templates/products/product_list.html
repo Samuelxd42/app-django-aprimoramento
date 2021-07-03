@@ -1,0 +1,74 @@
+{% extends "model-page.html" %}
+
+{% block main %}
+
+<h2>Produtos</h2>
+
+<a class="btn btn-success margin-left-btn" style="margin-bottom: 20px;"
+href="{% url 'create_products' %}">
+    Adicionar produto
+</a>
+
+<form>
+    <div class="form-group mb-1" style="width: 220px;" >
+        <input class="form-control" name="name" type="text" placeholder="Buscar por nome" >
+    </div>
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+
+<table class="table table-dark mt-1">
+
+    <thead>
+        <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Quantidade</th>
+            <th scope="col">Valor</th>
+            <th>Funções</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for products in object_list %}
+        <tr>
+            <td> {{ products.name }} </td>
+            <td>{{ products.quantity }}</td>
+            <td>{{ products.value }}</td>
+            <td>
+                <a type="button" class="btn btn-secondary margin-left-btn"
+                    href="{% url 'edit_products' products.id %}">
+                    Editar
+                </a>
+
+                <a class="btn btn-danger"
+                    href="{% url 'delete_products' products.id %}">
+                    Deletar
+                </a>
+
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+
+</table>
+
+
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a></li>
+        {% else %}
+            <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
+        {% endif %}
+
+        {% for object in page_obj.paginator.page_range %}
+            <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+        {% endfor %}
+        
+        {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Proximo</a></li>
+        {% else %}
+            <li class="page-item disabled"><a class="page-link" href="#">Proximo</a></li>
+        {% endif %}
+    </ul>
+ 
+
+{% endblock %}

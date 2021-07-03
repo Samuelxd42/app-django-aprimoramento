@@ -23,6 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", login_required(TemplateView.as_view(template_name="index.html")), name="index"),
     path('clients/', include('clients.urls')),
+    path('products/', include('products.urls')),
+    path('employees/', include('employee.urls')),
     path('login/', views.login, name='login'),
     path('login/submit', views.submit_login, name='submit_login'),
     path("logout/", views.logout, name="logout"),

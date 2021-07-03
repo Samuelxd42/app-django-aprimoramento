@@ -1,15 +1,22 @@
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
 
-    <a href="{% url 'index' %}" class="navbar-brand">CRM</a>
+    <a href="{% url 'index' %}" class="navbar-brand">HOME</a>
 
     <ul class="navbar-nav mr-auto">
         <li class="nav-item">
             <a class="nav-link" href="{% url 'list_clients' %}">Clientes</a>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'list_products' %}">Produtos</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'list_employess' %}">Funcionarios</a>
+        </li>
+
     </ul>
 
-
     <a class="nav-link sair-link" href="{% url 'logout' %}">Sair</a>
-
 
 </nav>

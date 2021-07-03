@@ -1,5 +1,5 @@
-
-from .form import CustumerForm
+from django.db import models
+from .forms import CustumerFormEmployee
 from django.views.generic import (
     ListView, 
     UpdateView, 
@@ -7,15 +7,15 @@ from django.views.generic import (
     CreateView
     )
 
-from .models import Client
+from .models import Employee
+from django.urls import reverse_lazy
 from django.db.models import Q
 
 
-
-class ListClients(ListView):
-    model = Client
+class ListEmployees(ListView):
+    model = Employee
     paginate_by = 4
-    
+
     def get_queryset(self):
         name = self.request.GET.get('name')
         if name:
@@ -30,16 +30,16 @@ class ListClients(ListView):
         return object_list
 
 
-class EditClients(UpdateView):
-    model = Client
-    form_class = CustumerForm
+class EditEmployees(UpdateView):
+    model = Employee
+    form_class = CustumerFormEmployee
 
 
-class DeleteClients(DeleteView):
-    model = Client
+class DeleteEmployees(DeleteView):
+    model = Employee
+    success_url = reverse_lazy('list_employess')
 
 
-class CreateClients(CreateView):
-    model = Client
-    form_class = CustumerForm
-
+class CreateEmployess(CreateView):
+    model = Employee
+    form_class =  CustumerFormEmployee
