@@ -9,6 +9,7 @@ from django.views.generic import (
 
 from .models import Client
 from django.db.models import Q
+from django.urls import reverse_lazy
 
 
 
@@ -37,6 +38,7 @@ class EditClients(UpdateView):
 
 class DeleteClients(DeleteView):
     model = Client
+    success_url = reverse_lazy('list_clients')
 
 
 class CreateClients(CreateView):
